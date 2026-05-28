@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USA Business Formation — Client Intake Form</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #faf8f4;
+    --white: #ffffff;
+    --slate: #4a5568;
+    --border: #ddd5c0;
+    --red: #c0392b;
+    --green: #1a6e3c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 48px 0 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      -45deg, transparent, transparent 40px,
+      rgba(201,168,76,0.04) 40px, rgba(201,168,76,0.04) 41px
+    );
+  }
+  .header-inner { position: relative; z-index: 1; }
+  .flag-strip { display: flex; justify-content: center; gap: 6px; margin-bottom: 20px; }
+  .flag-strip span { display: inline-block; width: 36px; height: 5px; border-radius: 3px; }
+  .flag-strip .r { background: #B22234; }
+  .flag-strip .w { background: #fff; }
+  .flag-strip .b { background: #3C3B6E; }
+  .header h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; color: var(--white); }
+  .header h1 span { color: var(--gold); }
+  .header .subtitle { margin-top: 8px; font-size: 0.95rem; font-weight: 300; color: rgba(255,255,255,0.65); letter-spacing: 1.5px; text-transform: uppercase; }
+  .header .badge { display: inline-block; margin-top: 16px; border: 1px solid var(--gold); color: var(--gold); font-size: 0.75rem; padding: 4px 14px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; font-weight: 500; }
+
+  /* MAIN */
+  .container { max-width: 860px; margin: 0 auto; padding: 40px 20px 60px; }
+
+  /* NOTICE */
+  .notice { background: var(--navy); color: var(--white); border-left: 4px solid var(--gold); padding: 14px 20px; border-radius: 0 6px 6px 0; font-size: 0.88rem; margin-bottom: 36px; line-height: 1.6; }
+  .notice strong { color: var(--gold); }
+
+  /* SECTION */
+  .section { margin-bottom: 32px; background: var(--white); border-radius: 10px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 2px 12px rgba(10,22,40,0.06); }
+  .section-header { background: var(--navy); padding: 14px 24px; display: flex; align-items: center; gap: 12px; }
+  .section-num { width: 28px; height: 28px; border-radius: 50%; background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; color: var(--white); font-size: 1.1rem; font-weight: 600; }
+  .section-body { padding: 24px; }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .col-span-2 { grid-column: span 2; }
+  .col-span-3 { grid-column: span 3; }
+
+  /* FIELD */
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label { font-size: 0.8rem; font-weight: 600; color: var(--slate); text-transform: uppercase; letter-spacing: 0.6px; }
+  .field label .req { color: var(--red); margin-left: 2px; }
+  .field input, .field select, .field textarea {
+    border: 1.5px solid var(--border); border-radius: 6px; padding: 10px 12px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--navy);
+    background: var(--cream); outline: none; transition: border-color 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); background: var(--white); }
+  .field textarea { resize: vertical; min-height: 80px; }
+
+  /* RADIO / CHECK GROUPS */
+  .radio-group, .check-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .radio-group label, .check-group label {
+    display: flex; align-items: center; gap: 7px; font-size: 0.88rem; font-weight: 400;
+    text-transform: none; letter-spacing: 0; color: var(--navy); cursor: pointer;
+    padding: 7px 14px; border: 1.5px solid var(--border); border-radius: 20px;
+    background: var(--cream); transition: all 0.15s;
+  }
+  .radio-group input[type=radio], .check-group input[type=checkbox] { accent-color: var(--gold); width: 15px; height: 15px; border: none; padding: 0; background: none; }
+  .radio-group label:hover, .check-group label:hover { border-color: var(--gold); background: rgba(201,168,76,0.07); }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px dashed var(--border); margin: 20px 0; }
+
+  /* SUB-HEADING */
+  .sub-heading { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--navy); margin: 18px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+
+  /* INFO BOX */
+  .info-box { background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.4); border-radius: 7px; padding: 12px 16px; font-size: 0.84rem; color: var(--navy); line-height: 1.6; margin-bottom: 14px; }
+  .info-box strong { color: #7a5c10; }
+
+  /* CHECKLIST INTRO BOX */
+  .checklist-intro {
+    background: #eaf4ee;
+    border: 1.5px solid #a8d5b5;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.88rem;
+    color: var(--green);
+    line-height: 1.7;
+    margin-bottom: 18px;
+  }
+  .checklist-intro strong { color: #145c30; }
+
+  /* CHECKLIST GRID */
+  .checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .checklist-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 12px 14px; border: 1.5px solid var(--border);
+    border-radius: 7px; background: var(--cream); cursor: pointer; transition: all 0.15s;
+  }
+  .checklist-item:hover { border-color: var(--gold); background: rgba(201,168,76,0.06); }
+  .checklist-item input[type=checkbox] { accent-color: var(--green); width: 17px; height: 17px; flex-shrink: 0; margin-top: 2px; }
+  .checklist-item.checked { border-color: #a8d5b5; background: #f0faf4; }
+  .item-title { font-size: 0.88rem; font-weight: 600; color: var(--navy); }
+  .item-desc { font-size: 0.78rem; color: var(--slate); margin-top: 3px; line-height: 1.4; }
+  .item-status { font-size: 0.72rem; font-weight: 700; margin-top: 4px; }
+  .item-status.available { color: var(--green); }
+  .item-status.pending { color: #b05c00; }
+
+  /* SIGNATURE */
+  .sig-box { border: 1.5px dashed var(--border); border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; color: var(--slate); font-size: 0.85rem; background: var(--cream); font-style: italic; }
+
+  /* FOOTER */
+  .footer { background: var(--navy); text-align: center; padding: 20px; color: rgba(255,255,255,0.4); font-size: 0.78rem; margin-top: 40px; }
+  .footer strong { color: var(--gold); }
+
+  @media print { .header { padding: 28px 0 20px; } .container { padding: 24px; } .section { break-inside: avoid; } body { background: white; } }
+  @media (max-width: 600px) { .grid-2, .grid-3, .checklist-grid { grid-template-columns: 1fr; } .col-span-2, .col-span-3 { grid-column: span 1; } .header h1 { font-size: 1.6rem; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="flag-strip">
+      <span class="r"></span><span class="w"></span><span class="r"></span>
+      <span class="b"></span><span class="b"></span>
+      <span class="r"></span><span class="w"></span><span class="r"></span>
+    </div>
+    <h1>USA Business <span>Formation</span></h1>
+    <p class="subtitle">Client Intake &amp; Document Checklist Form</p>
+    <span class="badge">Confidential &middot; Professional Use Only</span>
+  </div>
+</div>
+
+<form action="https://api.web3forms.com/submit" method="POST">
+<input type="hidden" name="access_key" value="6b898e18-79d8-4762-8ee7-fa55336927fa">
+<input type="hidden" name="subject" value="New USA Business Formation Inquiry">
+<input type="hidden" name="redirect" value="false">
+<div class="container">
+
+  <div class="notice">
+    <strong>Instructions:</strong> Please fill out this form carefully and completely. All fields marked with <span style="color:#f8c84a">*</span> are mandatory. In the Documents Checklist section (Section 8), please tick the checkbox next to every document you currently have available so we can identify what is ready and what needs to be arranged.
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">Applicant Personal Information</div>
+    </div>
+    <div class="section-body">
+      <div class="grid-2">
+        <div class="field">
+          <label>Full Legal Name (as per passport) <span class="req">*</span></label>
+          <input type="text" name="full_legal_name" placeholder="Exactly as it appears on your passport">
+        </div>
+        <div class="field">
+          <label>Date of Birth <span class="req">*</span></label>
+          <input type="date">
+        </div>
+        <div class="field">
+          <label>Nationality / Citizenship <span class="req">*</span></label>
+          <input type="text" name="nationality" placeholder="e.g. Indian, Canadian, etc.">
+        </div>
+        <div class="field">
+          <label>Country of Current Residence <span class="req">*</span></label>
+          <input type="text" name="country_of_residence" placeholder="Where do you currently live?">
+        </div>
+        <div class="field">
+          <label>Phone Number (with country code) <span class="req">*</span></label>
+          <input type="tel" name="phone" placeholder="+91 / +1 ...">
+        </div>
+        <div class="field">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" name="email" placeholder="your@email.com">
+        </div>
+        <div class="field col-span-2">
+          <label>Current Residential Address <span class="req">*</span></label>
+          <input type="text" name="residential_address" placeholder="Full address — street, city, state, postal code, country">
+        </div>
+      </div>
+
+      <hr class="divider">
+      <p class="sub-heading">US Presence &amp; Immigration Status</p>
+
+      <div class="field">
+        <label>Do you currently reside in or frequently visit the USA? <span class="req">*</span></label>
+        <div class="radio-group">
+          <label><input type="radio" name="us_residence"> Yes, I live in the USA</label>
+          <label><input type="radio" name="us_residence"> No, I live in India</label>
+          <label><input type="radio" name="us_residence"> No, I live in another country</label>
+          <label><input type="radio" name="us_residence"> I travel frequently to the USA</label>
+        </div>
+      </div>
+      <br>
+      <div class="grid-2">
+        <div class="field">
+          <label>US Visa / Immigration Status (if applicable)</label>
+          <select>
+            <option value="">-- Select --</option>
+            <option>Not Applicable / No US Visa</option>
+            <option>B1/B2 (Tourist / Business)</option>
+            <option>H-1B (Work Visa)</option>
+            <option>L-1 (Intra-company Transfer)</option>
+            <option>O-1 (Extraordinary Ability)</option>
+            <option>F-1 (Student)</option>
+            <option>Green Card (Permanent Resident)</option>
+            <option>US Citizen</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>US SSN or ITIN (if you have one)</label>
+          <input type="text" name="ssn_itin" placeholder="xxx-xx-xxxx  or  'None'">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">Business Details</div>
+    </div>
+    <div class="section-body">
+      <div class="grid-2">
+        <div class="field">
+          <label>Proposed Business Name — 1st Choice <span class="req">*</span></label>
+          <input type="text" name="company_name_1" placeholder="Your preferred company name">
+        </div>
+        <div class="field">
+          <label>Proposed Business Name — 2nd Choice</label>
+          <input type="text" name="company_name_2" placeholder="Alternate if 1st is unavailable">
+        </div>
+        <div class="field">
+          <label>Proposed Business Name — 3rd Choice</label>
+          <input type="text" name="company_name_3" placeholder="Another alternate name">
+        </div>
+        <div class="field">
+          <label>Existing Business Website (if any)</label>
+          <input type="url" name="website" placeholder="https://yourwebsite.com">
+        </div>
+        <div class="field col-span-2">
+          <label>Business Description <span class="req">*</span></label>
+          <textarea name="business_description" placeholder="Describe your business in detail — products/services offered, target market, customers, and how revenue will be generated."></textarea>
+        </div>
+        <div class="field">
+          <label>Industry / Sector <span class="req">*</span></label>
+          <select>
+            <option value="">-- Select Industry --</option>
+            <option>Technology / Software / IT Services</option>
+            <option>E-Commerce / Online Retail</option>
+            <option>Consulting / Advisory</option>
+            <option>Import / Export / Trading</option>
+            <option>Healthcare / Medical</option>
+            <option>Education / EdTech</option>
+            <option>Real Estate</option>
+            <option>Finance / FinTech</option>
+            <option>Manufacturing</option>
+            <option>Food &amp; Beverage</option>
+            <option>Media / Entertainment / Content</option>
+            <option>Legal / Professional Services</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Expected Annual Revenue — Year 1 <span class="req">*</span></label>
+          <select>
+            <option value="">-- Select Range --</option>
+            <option>Under $50,000</option>
+            <option>$50,000 – $100,000</option>
+            <option>$100,000 – $500,000</option>
+            <option>$500,000 – $1 Million</option>
+            <option>$1 Million – $5 Million</option>
+            <option>Above $5 Million</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Initial Investment Amount (USD)</label>
+          <input type="text" name="initial_investment" placeholder="e.g. $10,000">
+        </div>
+        <div class="field">
+          <label>Primary Market / Target Customers <span class="req">*</span></label>
+          <input type="text" name="target_market" placeholder="e.g. US customers, Indian businesses, global SaaS users">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">Entity Type &amp; State of Incorporation</div>
+    </div>
+    <div class="section-body">
+      <div class="info-box">
+        <strong>Guidance:</strong> For non-US residents, <strong>LLC</strong> and <strong>C-Corporation</strong> are the most common choices. C-Corp is preferred for VC funding and investors. LLC offers flexibility and simpler taxation. Our team will recommend the best option based on your goals.
+      </div>
+      <div class="field">
+        <label>Preferred Entity Type <span class="req">*</span></label>
+        <div class="radio-group">
+          <label><input type="radio" name="entity"> LLC (Limited Liability Company)</label>
+          <label><input type="radio" name="entity"> C-Corporation</label>
+          <label><input type="radio" name="entity"> S-Corporation</label>
+          <label><input type="radio" name="entity"> Sole Proprietorship</label>
+          <label><input type="radio" name="entity"> Partnership</label>
+          <label><input type="radio" name="entity"> Not sure — need advice</label>
+        </div>
+      </div>
+      <br>
+      <div class="field">
+        <label>Preferred State of Incorporation <span class="req">*</span></label>
+        <div class="radio-group">
+          <label><input type="radio" name="state"> Delaware (most popular)</label>
+          <label><input type="radio" name="state"> Wyoming (privacy + tax-friendly)</label>
+          <label><input type="radio" name="state"> Florida</label>
+          <label><input type="radio" name="state"> Texas</label>
+          <label><input type="radio" name="state"> California</label>
+          <label><input type="radio" name="state"> New York</label>
+          <label><input type="radio" name="state"> Other / Not sure</label>
+        </div>
+      </div>
+      <br>
+      <div class="grid-2">
+        <div class="field">
+          <label>Do you have a US business address? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="us_addr"> Yes</label>
+            <label><input type="radio" name="us_addr"> No — need Registered Agent / Virtual Office</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>US Business Address (if yes)</label>
+          <input type="text" name="us_business_address" placeholder="Full US street address">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">Ownership &amp; Partners</div>
+    </div>
+    <div class="section-body">
+      <div class="grid-2">
+        <div class="field">
+          <label>Total Number of Owners / Partners <span class="req">*</span></label>
+          <select>
+            <option value="">-- Select --</option>
+            <option>1 (Single Member / Solo)</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5 or more</option>
+          </select>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title">Banking &amp; Financial Setup</div>
+    </div>
+    <div class="section-body">
+      <div class="grid-2">
+        <div class="field">
+          <label>Do you need a US Business Bank Account? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="bank"> Yes</label>
+            <label><input type="radio" name="bank"> No</label>
+            <label><input type="radio" name="bank"> Already have one</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Preferred Bank (if any preference)</label>
+          <input type="text" name="preferred_bank" placeholder="e.g. Chase, Mercury, Relay, Bank of America">
+        </div>
+        <div class="field">
+          <label>Do you need a US Payment Gateway? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="pg"> Yes</label>
+            <label><input type="radio" name="pg"> No</label>
+            <label><input type="radio" name="pg"> Not sure</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Preferred Payment Gateway (select all that apply)</label>
+          <div class="check-group">
+            <label><input type="checkbox"> Stripe</label>
+            <label><input type="checkbox"> PayPal</label>
+            <label><input type="checkbox"> Square</label>
+            <label><input type="checkbox"> Other</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Do you need a US EIN (Employer Identification Number)? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="ein"> Yes</label>
+            <label><input type="radio" name="ein"> Already obtained</label>
+            <label><input type="radio" name="ein"> Not sure</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Existing EIN (if already obtained)</label>
+          <input type="text" name="existing_ein" placeholder="xx-xxxxxxx">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div class="section-title">Tax &amp; Compliance</div>
+    </div>
+    <div class="section-body">
+      <div class="grid-2">
+
+        <div class="field">
+          <label>Do you have an existing business in India or another country? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="existing_biz"> Yes</label>
+            <label><input type="radio" name="existing_biz"> No</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Will the US company hire US-based employees? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="emp"> Yes</label>
+            <label><input type="radio" name="emp"> No</label>
+            <label><input type="radio" name="emp"> Planning in future</label>
+          </div>
+        </div>
+        <div class="field col-span-2">
+          <label>Tax Filing Requirements — select all that apply</label>
+          <div class="check-group">
+            <label><input type="checkbox"> US Federal Tax Return</label>
+            <label><input type="checkbox"> State Tax Return</label>
+            <label><input type="checkbox"> FBAR (Foreign Bank Account Reporting)</label>
+            <label><input type="checkbox"> Not sure — need guidance</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Do you have an existing US or India CA / Accountant? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="ca"> Yes</label>
+            <label><input type="radio" name="ca"> No</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <div class="section-title">Additional Services Required</div>
+    </div>
+    <div class="section-body">
+      <div class="info-box">
+        <strong>Please select all services you are interested in.</strong> Our team will follow up with detailed information and pricing for each selected service.
+      </div>
+      <div class="field">
+        <label>Select all services you require</label>
+        <div class="check-group">
+          <label><input type="checkbox"> Virtual Office (US Business Address)</label>
+          <label><input type="checkbox"> Registered Agent Service</label>
+          <label><input type="checkbox"> Annual Report Filing</label>
+          <label><input type="checkbox"> Operating Agreement / Corporate Bylaws</label>
+          <label><input type="checkbox"> Bookkeeping &amp; Accounting</label>
+          <label><input type="checkbox"> US Tax Filing (Federal &amp; State)</label>
+          <label><input type="checkbox"> India Tax Filing &amp; Compliance</label>
+          <label><input type="checkbox"> Payroll Processing</label>
+          <label><input type="checkbox"> Sales Tax / VAT Registration</label>
+          <label><input type="checkbox"> FBAR &amp; Foreign Compliance Filings</label>
+        </div>
+      </div>
+      <br>
+      <div class="field">
+        <label>Any other specific requirements or questions?</label>
+        <textarea name="other_requirements" placeholder="Please share any specific requirements, concerns, timelines, or questions you have about establishing your US business..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 8 — DOCUMENT CHECKLIST -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">8</div>
+      <div class="section-title">Required Documents Checklist</div>
+    </div>
+    <div class="section-body">
+
+      <div class="checklist-intro">
+        <strong>&#10003; How to use this checklist:</strong><br>
+        Go through each document listed below. <strong>Tick the checkbox if the document is currently available with you.</strong> Leave it unchecked if you do not have it yet or need to arrange it. This helps our team identify what is ready and what needs to be arranged or applied for before your company formation can begin.
+      </div>
+
+      <p class="sub-heading">&#128100; Identity Documents — Required from All Owners</p>
+      <div class="checklist-grid">
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">Valid Passport (All Owners)</div>
+            <div class="item-desc">Must be valid for at least 6 months. Provide clear copies of all data pages.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">Government-Issued Photo ID</div>
+            <div class="item-desc">Aadhaar Card, Driver's License, Voter ID, or National Identity Card.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">Proof of Current Address</div>
+            <div class="item-desc">Utility bill, bank statement, or government letter — not older than 3 months.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">PAN Card (Indian Applicants)</div>
+            <div class="item-desc">Mandatory for India–US tax treaty compliance and FEMA regulations.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">US Visa / Entry Permit Copy (if applicable)</div>
+            <div class="item-desc">Front and back copy of your current valid US visa, if you hold one.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">US SSN / ITIN (if applicable)</div>
+            <div class="item-desc">Social Security Number or Individual Taxpayer Identification Number, if issued.</div>
+          </div>
+        </label>
+
+      </div>
+
+      <p class="sub-heading">&#127962; Business Formation Documents</p>
+      <div class="checklist-grid">
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">3 Proposed Company Name Choices</div>
+            <div class="item-desc">Listed in order of preference. Required for name availability search with the state.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">Business Plan / Executive Summary</div>
+            <div class="item-desc">A brief document describing the business model, services, and revenue plan.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">Ownership / Shareholding Structure</div>
+            <div class="item-desc">Names of all owners and their respective ownership percentages.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">US Business Address Proof (if available)</div>
+            <div class="item-desc">Lease agreement or utility bill if you have a physical US address. If not, we can provide Registered Agent / Virtual Office.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">Registered Agent Consent / Appointment Letter</div>
+            <div class="item-desc">Required for all US entities. We can arrange this if you do not have one.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">Digital Signature / E-Signature Capability</div>
+            <div class="item-desc">You will need to digitally sign formation documents and state filings.</div>
+          </div>
+        </label>
+
+      </div>
+
+      <p class="sub-heading">&#127968; Banking &amp; Financial Documents</p>
+      <div class="checklist-grid">
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">Personal Bank Statement — Last 3 Months</div>
+            <div class="item-desc">From your primary personal bank account. Required for bank account opening.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">Source of Funds Declaration Letter</div>
+            <div class="item-desc">A brief letter explaining the origin of funds being invested in the US company.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">Existing US Bank Account Details (if any)</div>
+            <div class="item-desc">Bank name and account number if you already hold a US bank account.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">EIN Confirmation Letter (if already obtained)</div>
+            <div class="item-desc">IRS-issued EIN assignment letter (CP 575) if you have already applied.</div>
+          </div>
+        </label>
+
+      </div>
+
+      <p class="sub-heading">&#128202; Tax &amp; Compliance Documents (If Applicable)</p>
+      <div class="checklist-grid">
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">India Income Tax Returns — Last 2 Years</div>
+            <div class="item-desc">ITR copies with ITR-V acknowledgement. Required for tax treaty and FEMA compliance.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">GST Registration Certificate (if applicable)</div>
+            <div class="item-desc">If you operate a GST-registered business in India.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">India Company Registration Documents</div>
+            <div class="item-desc">MOA, AOA, Certificate of Incorporation, and CIN — if an Indian entity exists.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">Previous US Tax Returns (if applicable)</div>
+            <div class="item-desc">If you have previously filed any US federal or state tax returns.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">FEMA / RBI Approval for Overseas Investment</div>
+            <div class="item-desc">Required if transferring capital from India to the US company (ODI compliance).</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox">
+          <div>
+            <div class="item-title">Power of Attorney (if applicable)</div>
+            <div class="item-desc">Notarized POA if another person is authorized to sign documents on your behalf.</div>
+          </div>
+        </label>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 9 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">9</div>
+      <div class="section-title">Reference &amp; Communication Preferences</div>
+    </div>
+    <div class="section-body">
+      <div class="grid-2">
+        <div class="field">
+          <label>How did you hear about us? <span class="req">*</span></label>
+          <select>
+            <option value="">-- Select --</option>
+            <option>Referred by a friend / colleague</option>
+            <option>Google Search</option>
+            <option>LinkedIn</option>
+            <option>YouTube</option>
+            <option>Instagram / Facebook</option>
+            <option>CA / Consultant Referral</option>
+            <option>Existing / Previous Client</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Referral Name (if referred by someone)</label>
+          <input type="text" name="referral_name" placeholder="Full name of the person who referred you">
+        </div>
+        <div class="field">
+          <label>Preferred Mode of Communication <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="comm"> WhatsApp</label>
+            <label><input type="radio" name="comm"> Email</label>
+            <label><input type="radio" name="comm"> Phone Call</label>
+            <label><input type="radio" name="comm"> Video Call (Zoom / Google Meet)</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Best Time to Contact</label>
+          <input type="text" name="best_contact_time" placeholder="e.g. Mon–Fri, 6 PM – 9 PM IST">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 10 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">10</div>
+      <div class="section-title">Declaration &amp; Signature</div>
+    </div>
+    <div class="section-body">
+      <div class="info-box">
+        <strong>I / We hereby declare</strong> that all information provided in this form is true, accurate, and complete to the best of my / our knowledge and belief. I / We understand that any false or incomplete information may result in delays, rejection of services, or legal consequences. I / We authorize the processing of this information for the purpose of US business formation and related services.
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Full Name (Print Clearly) <span class="req">*</span></label>
+          <input type="text" name="full_name" placeholder="Full legal name">
+        </div>
+        <div class="field">
+          <label>Date <span class="req">*</span></label>
+          <input type="date" name="date">
+        </div>
+        <div class="field">
+          <label>Place (City, Country)</label>
+          <input type="text" name="place" placeholder="e.g. Mumbai, India">
+        </div>
+      </div>
+
+      <br>
+      <div style="text-align:center; margin-top: 10px;">
+        <button type="submit" style="
+          background: #0a1628;
+          color: #fff;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 1rem;
+          font-weight: 600;
+          padding: 14px 48px;
+          border: 2px solid #c9a84c;
+          border-radius: 6px;
+          cursor: pointer;
+          letter-spacing: 0.5px;
+          transition: background 0.2s;
+        ">Submit Form</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</form>
+
+<div class="footer">
+  <strong>CONFIDENTIAL — FOR PROFESSIONAL USE ONLY</strong><br>
+  This form and all information contained herein is strictly confidential and intended solely for authorized personnel.
+</div>
+
+</body>
+</html>
